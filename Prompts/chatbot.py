@@ -12,4 +12,6 @@ while True:
         break
     else:
         result=model.invoke(chat_history)
+        chat_history.append(result.content)
         print(f"Chatbot: {result.content}")
+print(chat_history)
