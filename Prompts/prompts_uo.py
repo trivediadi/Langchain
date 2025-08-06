@@ -12,11 +12,12 @@ length_input=st.selectbox("Select Length",["Select...","Short(1-2 paragraph)","M
 
 templete=load_prompt('template.json')
 
-prompt=templete.invoke({
+
+if st.button('SUBMIT'):
+    chain= templete | model
+    result=chain.invoke({
     'paper_input': paper_input,
     'style_input': style_input,
     'length_input': length_input
-})
-if st.button('SUBMIT'):
-    result=model.invoke(prompt)
+   })
     st.write(result.content)
