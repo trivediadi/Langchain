@@ -1,0 +1,17 @@
+{
+    "name": null,
+    "input_variables": [
+        "length_input",
+        "paper_input",
+        "style_input"
+    ],
+    "optional_variables": [],
+    "output_parser": null,
+    "partial_variables": {},
+    "metadata": null,
+    "tags": null,
+    "template": " Please summarize the research paper '{paper_input}' in {style_input} style with {length_input} length.\n    1.Mathematical Explaination\n       -include mathematical notations and equations in the paper\n       -Explain the mathematical concepts in a clear and concise manner\n    2.Analogies\n       -Use relatable analogies to explain complex concepts\n    If certain information is not available in the paper, please respond \"insufficient informations\" instead of gussing.\n    Ensure that the summary is comprehensive and covers all key aspects of the paper and in given length.",
+    "template_format": "f-string",
+    "validate_template": false,
+    "_type": "prompt"
+}
