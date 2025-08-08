@@ -25,4 +25,4 @@ parser=StrOutputParser()
 
 chain= template1 | model |parser|template2 |model |parser
 result=chain.invoke({"topic":"Black Holes"})
-print(result)  # Output the final summary after processing through both prompts and the model
+print(result)  
