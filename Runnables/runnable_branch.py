@@ -17,12 +17,11 @@ prompt2= PromptTemplate(
     template="Generate a summary based on this report  {report}",
     input_variables=["report"]
 )
-def word_count(text):
-    return len(text.split())
+
 gen_chain= RunnableSequence(prompt1, model, parser)
 branch_chain = RunnableBranch(
-    (word_count>500,RunnableSequence(prompt2, model, parser)),
-    (word_count<=500,RunnablePassthrough())
+    (lambda x:len(x.split())>200,RunnableSequence(prompt2, model, parser)),
+    RunnablePassthrough()
 )
 chain= RunnableSequence(
     gen_chain, branch_chain
