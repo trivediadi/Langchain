@@ -1,0 +1,32 @@
+from langchain.schema.runnable import RunnableSequence, RunnablePassthrough, RunnableParallel,RunnableLambda,RunnableBranch
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from dotenv import load_dotenv
+
+load_dotenv()
+
+model = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.0)
+parser = StrOutputParser()
+
+prompt1 = PromptTemplate(
+    template="Generate a detailed report about this  {topic}",
+    input_variables=["topic"]   
+)
+prompt2= PromptTemplate(
+    template="Generate a summary based on this report  {report}",
+    input_variables=["report"]
+)
+def word_count(text):
+    return len(text.split())
+gen_chain= RunnableSequence(prompt1, model, parser)
+branch_chain = RunnableBranch(
+    (word_count>500,RunnableSequence(prompt2, model, parser)),
+    (word_count<=500,RunnablePassthrough())
+)
+chain= RunnableSequence(
+    gen_chain, branch_chain
+)
+
+result = chain.invoke({"topic": "Artificial Intelligence"})
+print(result)  # This will print either the summary or the original report based on word count
